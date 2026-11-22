@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jeff Danley · Connect</title>
+<meta name="description" content="Connect with Jeff Danley. Innovation Development Director at Burns &amp; McDonnell, author of AI-First.">
+<meta name="theme-color" content="#0B0F2E">
+<meta name="color-scheme" content="dark">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Jeff Danley · Connect">
+<meta property="og:description" content="Innovation Development Director at Burns &amp; McDonnell. Author of AI-First.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://jarvisdanley.github.io/letsconnect-alt/">
+<meta property="og:image" content="https://jarvisdanley.github.io/letsconnect-alt/assets/headshot.jpg">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/headshot.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230B0F2E%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%277%27 fill=%27%23EE5A1F%27/%3E%3C/svg%3E">
+
+<style>
+/* ========================================================================
+   JEFF DANLEY · NFC CONTACT CARD (dark AI-First edition)
+   Mobile-first landing page served when a tap-card is scanned.
+   Designed at 390px width; centered card up to 440px on larger screens.
+   ======================================================================== */
+
+:root {
+  --bg-0: #0B0F2E;
+  --bg-1: #141A4A;
+  --orange: #EE5A1F;
+  --orange-text: #FF8A57;     /* orange for small text on dark: 6.5:1 */
+  --cyan: #22D3EE;
+  --violet: #6D28D9;
+  --fg: #F5F7FF;
+  --fg-2: #D3D8F0;            /* 10:1 on surfaces */
+  --fg-3: #AEB6DE;            /* 7.6:1 on surfaces */
+  --surface: linear-gradient(180deg, rgba(255,255,255,0.065), rgba(255,255,255,0.035));
+  --hairline: rgba(255,255,255,0.10);
+  --divider: rgba(255,255,255,0.08);
+  --shadow-card: 0 1px 0 rgba(255,255,255,0.05) inset, 0 12px 32px rgba(3,5,24,0.45);
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { background: var(--bg-0); }
+html, body {
+  margin: 0;
+  padding: 0;
+  color: var(--fg);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(109,40,217,0.30) 0%, rgba(109,40,217,0) 60%),
+    radial-gradient(80% 40% at 50% 100%, rgba(34,211,238,0.07) 0%, rgba(34,211,238,0) 70%),
+    linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 55%, var(--bg-0) 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+a { -webkit-tap-highlight-color: transparent; }
+a:focus-visible, .save:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* The phone render target */
+.card {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0 20px 32px;
+  padding-top: env(safe-area-inset-top, 0);
+  padding-bottom: calc(32px + env(safe-area-inset-bottom, 0));
+  position: relative;
+}
+
+/* ---------- Staggered entrance -------------------------------------- */
+.rise { animation: rise 640ms var(--ease-out) both; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- HERO ----------------------------------------------------- */
+.hero {
+  position: relative;
+  padding: 12px 0 0;
+  text-align: center;
+}
+.hero__motif {
+  position: absolute;
+  left: -20px;
+  right: -20px;
+  top: -10px;
+  height: 300px;
+  background-image: url("assets/neural-motif.svg");
+  background-repeat: no-repeat;
+  background-position: center 6px;
+  background-size: 360px auto;
+  opacity: 0.16;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center 40%, #000 30%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse at center 40%, #000 30%, transparent 72%);
+}
+
+/* Fluid Orb (Rare UI port) wraps the portrait */
+.orb {
+  position: relative;
+  width: 264px;
+  height: 264px;
+  margin: 0 auto 2px;
+  display: grid;
+  place-items: center;
+}
+.orb::before {           /* soft ambient halo, static, cheap */
+  content: '';
+  position: absolute;
+  inset: 34px;
+  border-radius: 50%;
+  box-shadow: 0 0 70px 14px rgba(109,40,217,0.26);
+  pointer-events: none;
+}
+.orb__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: block;
+}
+.orb__fallback {         /* shown only if WebGL is unavailable */
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(34,211,238,0.55), transparent 55%),
+    radial-gradient(circle at 70% 75%, rgba(238,90,31,0.6), transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(109,40,217,0.8), transparent 70%);
+  filter: blur(14px);
+  display: none;
+}
+.orb--fallback .orb__fallback { display: block; }
+
+.hero__portrait-wrap {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+.hero__portrait {
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 18%;
+  background: var(--bg-1);
+  display: block;
+  box-shadow:
+    0 0 0 3px rgba(11,15,46,0.85),
+    0 0 0 4.5px rgba(255,255,255,0.55),
+    0 10px 30px rgba(3,5,24,0.55);
+}
+.hero__badge {
+  position: absolute;
+  bottom: 6px;
+  right: 4px;
+  background: #C2410C;
+  color: #fff;
+  border-radius: 999px;
+  padding: 5px 10px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(238,90,31,0.45), 0 0 0 3px var(--bg-0);
+}
+
+/* Gravity Letters (Rare UI port) on the name */
+.hero__name {
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+  color: var(--fg);
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.glyphs { display: inline-block; white-space: nowrap; }
+.glyph {
+  display: inline-block;
+  will-change: transform;
+}
+.glyph > span {
+  display: inline-block;
+  transform-origin: 50% 100%;
+}
+.glyphs--armed .glyph { opacity: 0; }
+
+.hero__role {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--fg-2);
+  margin: 0 auto 4px;
+  max-width: 300px;
+  font-weight: 500;
+}
+.hero__role strong { color: var(--fg); font-weight: 600; }
+.hero__role em { font-style: italic; color: var(--fg); }
+
+.hero__tagline {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+.hero__tagline::before,
+.hero__tagline::after {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* ---------- PRIMARY ACTION (Save Contact) ---------------------------- */
+.save {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 56px;
+  margin: 26px 0 10px;
+  padding: 0 24px;
+  background: linear-gradient(180deg, #C9440F 0%, #B23A0A 100%);
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  border: 0;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(238,90,31,0.9) inset,
+    0 1px 0 rgba(255,255,255,0.22) inset,
+    0 10px 28px rgba(238,90,31,0.32),
+    0 0 0 1px rgba(238,90,31,0.25);
+  transition: transform 140ms var(--ease-out), box-shadow 140ms ease;
+}
+.save:active {
+  transform: scale(0.985) translateY(1px);
+  box-shadow:
+    0 0 0 1px rgba(238,90,31,0.9) inset,
+    0 1px 0 rgba(255,255,255,0.22) inset,
+    0 4px 12px rgba(238,90,31,0.30);
+}
+.save__hint {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--fg-3);
+  margin: 0 0 30px;
+}
+
+/* ---------- SECTION HEADER ------------------------------------------- */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin: 0 4px 10px;
+}
+.section-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(34,211,238,0.15);
+}
+
+/* ---------- CONTACT LIST (personal) ---------------------------------- */
+.contact-list {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.contact-list li + li { border-top: 1px solid var(--divider); }
+.contact-row {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  color: inherit;
+  text-decoration: none;
+  min-height: 64px;
+  transition: background 140ms ease, transform 140ms var(--ease-out);
+}
+.contact-row:active { background: rgba(34,211,238,0.08); transform: scale(0.99); }
+@media (hover: hover) { .contact-row:hover { background: rgba(255,255,255,0.04); } }
+.contact-row__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(238,90,31,0.14);
+  box-shadow: 0 0 0 1px rgba(238,90,31,0.28) inset;
+  display: grid;
+  place-items: center;
+  color: var(--orange-text);
+  flex-shrink: 0;
+}
+.contact-row__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin-bottom: 2px;
+}
+.contact-row__value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--fg);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+.contact-row__chev { color: var(--fg-3); flex-shrink: 0; }
+
+/* ---------- BURNS & MCDONNELL BLOCK ---------------------------------- */
+.bm {
+  position: relative;
+  background: #231F20;
+  color: #fff;
+  border-radius: 22px;
+  padding: 22px 20px 18px;
+  margin: 0 0 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 20px 40px rgba(3,5,24,0.5);
+}
+.bm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -1px -1px;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 90%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 90%);
+}
+.bm::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 22px; right: 22px;
+  height: 3px;
+  background: #C8102E;
+  border-radius: 0 0 3px 3px;
+}
+.bm__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.bm__logo {
+  display: block;
+  height: 26px;
+  width: auto;
+  max-width: 80%;
+  filter: brightness(0) invert(1);
+}
+.bm__title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.74);
+  margin: 2px 0 2px;
+  position: relative;
+}
+.bm__email {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.88);
+  margin: 0 0 14px;
+  position: relative;
+  letter-spacing: -0.005em;
+  word-break: break-word;
+}
+.bm__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background 140ms ease, transform 140ms var(--ease-out);
+}
+.bm__btn:active { background: rgba(255,255,255,0.16); transform: scale(0.99); }
+.bm__btn svg { opacity: 0.8; }
+
+/* ---------- BOOK BLOCK ----------------------------------------------- */
+.book {
+  position: relative;
+  background:
+    radial-gradient(90% 70% at 0% 0%, rgba(109,40,217,0.28), transparent 60%),
+    var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 22px;
+  padding: 22px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.book__eyebrow {
+  font-family: 'Anton', 'Impact', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.03em;
+  color: var(--orange-text);
+  margin: 0 0 4px;
+  line-height: 1.1;
+}
+.book__kicker {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 0 0 18px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.book__grid {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+.book__cover-link { display: block; border-radius: 6px; }
+.book__cover {
+  width: 112px;
+  height: 172px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 14px 30px rgba(238,90,31,0.25),
+    0 6px 14px rgba(3,5,24,0.6);
+  transform: rotate(-1.5deg);
+  transition: transform 200ms var(--ease-out);
+  display: block;
+}
+.book__cover:active { transform: rotate(-1.5deg) scale(0.98); }
+.book__sub {
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--fg-2);
+  margin: 0 0 14px;
+}
+.book__avail {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  margin-bottom: 12px;
+}
+.book__avail__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ADE80;
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.2);
+}
+.book__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
+  background: var(--fg);
+  color: var(--bg-0);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(3,5,24,0.45);
+  transition: transform 140ms var(--ease-out);
+}
+.book__cta:active { transform: scale(0.985); }
+
+/* ---------- FOOTER --------------------------------------------------- */
+.foot {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--divider);
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--fg-3);
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+.foot__wordmark {
+  display: block;
+  font-family: 'Anton', 'Impact', sans-serif;
+  font-size: 15px;
+  color: var(--orange-text);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.foot__credit {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 12px;
+  color: var(--fg-3);
+  text-decoration: underline;
+  text-decoration-color: rgba(174,182,222,0.45);
+  text-underline-offset: 3px;
+}
+.foot__credit:active { color: var(--fg); }
+
+/* ---------- TOAST (Rare UI port) ------------------------------------- */
+.toaster {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0));
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+  z-index: 50;
+}
+.toast {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 380px;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3)) drop-shadow(0 6px 16px rgba(3,5,24,0.55));
+  cursor: pointer;
+}
+.toast__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;                 /* PADDING */
+  border-radius: 21px;           /* CARD_RADIUS = TILE_RADIUS + PADDING */
+  background: #1A1F4F;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12) inset;
+}
+.toast__tile {
+  position: relative;
+  width: 36px;                   /* TILE */
+  height: 36px;
+  border-radius: 11px;           /* TILE_RADIUS */
+  flex-shrink: 0;
+  background: #30D158;           /* success tone, dark mode */
+  color: #fff;
+  display: grid;
+  place-items: center;
+}
+.toast__glyph { display: grid; place-items: center; }
+.toast__glyph svg { width: 18px; height: 18px; display: block; }
+.toast__check { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.toast__text { min-width: 0; flex: 1; min-height: 36px; display: flex; flex-direction: column; justify-content: center; }
+.toast__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+.toast__desc {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--fg-3);
+}
+
+/* ---------- REDUCED MOTION ------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; }
+  .contact-row, .bm__btn, .book__cta, .book__cover, .save { transition: none; }
+  .glyphs--armed .glyph { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<main class="card">
+
+  <section class="hero">
+    <div class="hero__motif" aria-hidden="true"></div>
+
+    <div class="orb rise" id="orb" style="animation-delay:0ms">
+      <canvas class="orb__canvas" id="orbCanvas" aria-hidden="true"></canvas>
+      <div class="orb__fallback" aria-hidden="true"></div>
+      <div class="hero__portrait-wrap">
+        <img class="hero__portrait" src="assets/headshot.jpg" alt="Jeff Danley" width="168" height="168" fetchpriority="high">
+        <span class="hero__badge">Author</span>
+      </div>
+    </div>
+
+    <h1 class="hero__name" id="heroName"><span class="sr-only">Jeff Danley</span><span class="glyphs" id="nameGlyphs" aria-hidden="true">Jeff Danley</span></h1>
+    <p class="hero__role rise" style="animation-delay:120ms">
+      <strong>Innovation Development Director</strong> <span style="white-space:nowrap">at Burns &amp; McDonnell</span>
+      <br>Author of <em>AI-First</em>
+    </p>
+
+    <div class="hero__tagline rise" style="animation-delay:180ms">Let's connect</div>
+  </section>
+
+  <!-- Primary action: save contact -->
+  <div class="rise" style="animation-delay:240ms">
+    <a class="save" id="saveContact" href="#">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      Save to contacts
+    </a>
+    <p class="save__hint">Adds Jeff to your phone with one tap</p>
+  </div>
+
+  <!-- Personal contact list -->
+  <div class="rise" style="animation-delay:300ms">
+  <h2 class="section-label">Reach me directly</h2>
+  <ul class="contact-list">
+    <li>
+      <a class="contact-row" href="mailto:jeff@readaifirst.com">
+        <span class="contact-row__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M3 7l9 6 9-6M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>
+          <span class="contact-row__label" style="display:block">Email</span>
+          <span class="contact-row__value" style="display:block">jeff@readaifirst.com</span>
+        </span>
+        <svg class="contact-row__chev" width="8" height="14" viewBox="0 0 8 14" aria-hidden="true"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </a>
+    </li>
+    <li>
+      <a class="contact-row" href="https://x.com/jeffdanley" target="_blank" rel="noopener">
+        <span class="contact-row__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25zm-1.16 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+          </svg>
+        </span>
+        <span>
+          <span class="contact-row__label" style="display:block">X</span>
+          <span class="contact-row__value" style="display:block">@jeffdanley</span>
+        </span>
+        <svg class="contact-row__chev" width="8" height="14" viewBox="0 0 8 14" aria-hidden="true"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </a>
+    </li>
+    <li>
+      <a class="contact-row" href="https://www.linkedin.com/in/jeffdanley" target="_blank" rel="noopener">
+        <span class="contact-row__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM3.56 20.45h3.56V9H3.56v11.45z"/>
+          </svg>
+        </span>
+        <span>
+          <span class="contact-row__label" style="display:block">LinkedIn</span>
+          <span class="contact-row__value" style="display:block">linkedin.com/in/jeffdanley</span>
+        </span>
+        <svg class="contact-row__chev" width="8" height="14" viewBox="0 0 8 14" aria-hidden="true"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </a>
+    </li>
+  </ul>
+  </div>
+
+  <!-- Burns & McDonnell branded block -->
+  <div class="rise" style="animation-delay:360ms">
+  <h2 class="section-label">At work</h2>
+  <section class="bm">
+    <div class="bm__header">
+      <img class="bm__logo" src="assets/bmcd-logo-720.png" alt="Burns &amp; McDonnell" width="720" height="184">
+    </div>
+    <div class="bm__title">Innovation Development Director</div>
+    <div class="bm__email">jdanley@burnsmcd.com</div>
+
+    <a class="bm__btn" href="mailto:jdanley@burnsmcd.com">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 7l9 6 9-6M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
+      Email at work
+    </a>
+  </section>
+  </div>
+
+  <!-- Book block -->
+  <div class="rise" style="animation-delay:420ms">
+  <h2 class="section-label">New book</h2>
+  <section class="book">
+    <p class="book__eyebrow">AI-First</p>
+    <p class="book__kicker">Building the central nervous system of the modern enterprise</p>
+
+    <div class="book__grid">
+      <a class="book__cover-link" href="https://a.co/d/06hXMibj" target="_blank" rel="noopener" aria-label="View book on Amazon">
+        <img class="book__cover" src="assets/book-cover-540.jpg" alt="AI-First book cover" width="112" height="172" loading="lazy">
+      </a>
+      <div>
+        <div class="book__avail">
+          <span class="book__avail__dot"></span>
+          Available now
+        </div>
+        <p class="book__sub">
+          A field guide for leaders moving beyond AI pilots to production at scale.
+        </p>
+        <a class="book__cta" href="https://a.co/d/06hXMibj" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 4l1 2h8l1-2M5 8h14l-1.3 10.5a2 2 0 01-2 1.5H8.3a2 2 0 01-2-1.5L5 8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M10 12v5M14 12v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          Buy on Amazon
+        </a>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__wordmark">AI-FIRST</div>
+    &copy; 2026 Jeff Danley
+    <br><a class="foot__credit" href="https://rareui.com" target="_blank" rel="noopener">Motion components by Rare UI</a>
+  </footer>
+</main>
+
+<div class="toaster" id="toaster" role="status" aria-live="polite"></div>
+
+<script>
+/* ========================================================================
+   Motion components ported to vanilla JS from Rare UI
+   (github.com/swamimalode07/rare-ui): Fluid Orb, Gravity Letters, Toast.
+   Copyright (c) 2026 Swami Malode
+   Licensed under MIT + Commons Clause License Condition v1.0 + Attribution.
+   See https://github.com/swamimalode07/rare-ui/blob/main/LICENSE
+   Credit: https://rareui.com (linked in the page footer).
+   Used here as part of this website only; not redistributed as components.
+   ======================================================================== */
+(function () {
+  'use strict';
+  var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rand = function (a, b) { return a + Math.random() * (b - a); };
+  var clamp = function (v, a, b) { return Math.min(Math.max(v, a), b); };
+
+  /* ---------------- Fluid Orb (WebGL fragment shader) ----------------
+     Same fbm domain-warp field and drift as Rare UI's FluidOrb; the single
+     tint is replaced by a violet / cyan / electric-orange ramp and the hard
+     circular edge is feathered into a glow behind the portrait. */
+  var VERT = 'attribute vec2 a_pos;void main(){gl_Position=vec4(a_pos,0.0,1.0);}';
+  var FRAG = [
+    '#ifdef GL_FRAGMENT_PRECISION_HIGH',
+    'precision highp float;',
+    '#else',
+    'precision mediump float;',
+    '#endif',
+    'uniform vec2 u_resolution;',
+    'uniform float u_time;',
+    'uniform vec3 u_base;',
+    'uniform vec3 u_violet;',
+    'uniform vec3 u_cyan;',
+    'uniform vec3 u_orange;',
+    'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}',
+    'float noise(vec2 p){vec2 i=floor(p);vec2 f=fract(p);vec2 u=f*f*(3.0-2.0*f);',
+    ' return mix(mix(hash(i),hash(i+vec2(1.0,0.0)),u.x),mix(hash(i+vec2(0.0,1.0)),hash(i+vec2(1.0,1.0)),u.x),u.y);}',
+    'float fbm(vec2 p){float v=0.0;float a=0.6;for(int i=0;i<3;i++){v+=a*noise(p);p*=2.0;a*=0.5;}return v;}',
+    'void main(){',
+    ' vec2 uv=gl_FragCoord.xy/u_resolution.xy;',
+    ' float t=u_time*0.22;',
+    ' vec2 drift=vec2(sin(t)+0.6*sin(t*1.7+1.3),cos(t*0.8)+0.6*cos(t*1.3+2.1));',
+    ' vec2 p=vec2(uv.x*1.8,uv.y*1.0)+drift*0.7;',
+    ' vec2 q=vec2(fbm(p+drift),fbm(p+vec2(3.2,1.5)-drift));',
+    ' float f=fbm(p+1.2*q);',
+    ' float g=clamp(1.0-uv.y,0.0,1.0);',
+    ' float anchor=smoothstep(0.0,0.3,uv.y);',
+    ' float shade=clamp(g+(f-0.5)*0.8*anchor,0.0,1.0);',
+    ' vec3 col=mix(u_base,u_violet,smoothstep(0.05,0.30,shade));',
+    ' col=mix(col,u_cyan,smoothstep(0.30,0.52,shade)*0.6);',
+    ' col=mix(col,u_orange,smoothstep(0.58,0.90,shade)*0.8);',
+    ' float d=distance(uv,vec2(0.5));',
+    ' float edge=smoothstep(0.5,0.30,d);',
+    ' float rim=smoothstep(0.30,0.36,d)*(1.0-smoothstep(0.40,0.5,d));',
+    ' col+=rim*0.04;',
+    ' float a=edge*0.70;',
+    ' gl_FragColor=vec4(col*a,a);',
+    '}'
+  ].join('\n');
+
+  function hexToRgb(hex) {
+    var n = parseInt(hex.replace('#', ''), 16);
+    return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
+  }
+  function compile(gl, type, src) {
+    var s = gl.createShader(type);
+    if (!s) return null;
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { gl.deleteShader(s); return null; }
+    return s;
+  }
+
+  var orbState = window.__orb = { frames: 0, running: false, webgl: false };
+
+  function initOrb() {
+    var wrap = document.getElementById('orb');
+    var canvas = document.getElementById('orbCanvas');
+    var gl = null;
+    try { gl = canvas.getContext('webgl', { antialias: true, alpha: true, premultipliedAlpha: true }); } catch (e) { gl = null; }
+    if (!gl) { wrap.classList.add('orb--fallback'); return; }
+
+    var program = gl.createProgram();
+    var vert = compile(gl, gl.VERTEX_SHADER, VERT);
+    var frag = compile(gl, gl.FRAGMENT_SHADER, FRAG);
+    if (!program || !vert || !frag) { wrap.classList.add('orb--fallback'); return; }
+    gl.attachShader(program, vert);
+    gl.attachShader(program, frag);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) { wrap.classList.add('orb--fallback'); return; }
+    gl.useProgram(program);
+    orbState.webgl = true;
+
+    var buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+    var aPos = gl.getAttribLocation(program, 'a_pos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    var uRes = gl.getUniformLocation(program, 'u_resolution');
+    var uTime = gl.getUniformLocation(program, 'u_time');
+    function setColor(name, hex) { var c = hexToRgb(hex); gl.uniform3f(gl.getUniformLocation(program, name), c[0], c[1], c[2]); }
+    setColor('u_base', '#141A4A');
+    setColor('u_violet', '#6D28D9');
+    setColor('u_cyan', '#22D3EE');
+    setColor('u_orange', '#EE5A1F');
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var size = canvas.clientWidth || 264;
+    var px = Math.round(size * dpr);
+    canvas.width = px;
+    canvas.height = px;
+    gl.viewport(0, 0, px, px);
+    gl.uniform2f(uRes, px, px);
+
+    var start = performance.now();
+    var raf = 0;
+    var visible = true;     /* in viewport */
+    var timeOffset = 7.0;   /* start the drift mid-swirl so the first frame reads well */
+
+    function draw(now) {
+      gl.uniform1f(uTime, REDUCE ? timeOffset : timeOffset + (now - start) / 1000);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      orbState.frames++;
+    }
+    function loop(now) {
+      draw(now);
+      raf = requestAnimationFrame(loop);
+    }
+    function play() {
+      if (REDUCE || raf || document.hidden || !visible) return;
+      orbState.running = true;
+      raf = requestAnimationFrame(loop);
+    }
+    function pause() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      orbState.running = false;
+    }
+
+    draw(start);
+    if (REDUCE) return;   /* static orb, single frame */
+
+    document.addEventListener('visibilitychange', function () { document.hidden ? pause() : play(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        visible ? play() : pause();
+      }).observe(canvas);
+    }
+    canvas.addEventListener('webglcontextlost', function (e) { e.preventDefault(); pause(); });
+    play();
+  }
+
+  /* ---------------- Gravity Letters ----------------
+     Each letter of the name is a falling body using Rare UI's integrator:
+     gravity 800 px/s^2, restitution 0.22 on first touch, spin blended to the
+     rest angle by p^3, sideways sway on a sine arc, a 160ms scaleY(0.82)
+     squash on landing and a 150ms pop on spawn. The rest spot is the letter's
+     natural place in the word, so the name always settles legible.
+     Tap the name to drop it again. */
+  var GRAVITY = 800, BOUNCE = 0.22, STAGGER = 55;
+  var POP_EASE = 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+  var nameBodies = [], nameRaf = 0, nameLast = 0;
+
+  function buildGlyphs() {
+    var host = document.getElementById('nameGlyphs');
+    var text = host.textContent;
+    host.textContent = '';
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (ch === ' ') { host.appendChild(document.createTextNode(' ')); continue; }
+      var outer = document.createElement('span');
+      outer.className = 'glyph';
+      var inner = document.createElement('span');
+      inner.textContent = ch;
+      outer.appendChild(inner);
+      host.appendChild(outer);
+    }
+    return host;
+  }
+
+  function paint(b) {
+    b.el.style.transform = 'translate3d(' + b.x.toFixed(2) + 'px,' + b.y.toFixed(2) + 'px,0) rotate(' + b.rot.toFixed(2) + 'deg)';
+  }
+  function squash(b) {
+    if (b.inner.animate) b.inner.animate([{ transform: 'scaleY(0.82)' }, { transform: 'scaleY(1)' }], { duration: 160, easing: POP_EASE });
+  }
+
+  function stepName(now) {
+    var dt = Math.max(0, Math.min((now - nameLast) / 1000, 1 / 30));
+    nameLast = now;
+    var active = false;
+    for (var i = 0; i < nameBodies.length; i++) {
+      var b = nameBodies[i];
+      if (b.done) continue;
+      active = true;
+      if (now < b.startAt) continue;
+      if (!b.spawned) {
+        b.spawned = true;
+        b.el.style.opacity = '1';
+        if (b.inner.animate) b.inner.animate([{ transform: 'scale(0.5)', opacity: 0.3 }, { transform: 'scale(1)', opacity: 1 }], { duration: 150, easing: POP_EASE });
+      }
+      b.vy += GRAVITY * dt;
+      b.y += b.vy * dt;
+      b.spin += b.vr * dt;
+      var total = b.targetY - b.y0;
+      var p = total > 0 ? Math.min((b.y - b.y0) / total, 1) : 1;
+      b.x = b.x0 + (0 - b.x0) * p * (2 - p) + Math.sin(p * Math.PI) * b.sway;
+      var blend = p * p * p;
+      b.rot = b.spin * (1 - blend);
+
+      if (b.y >= b.targetY) {
+        b.x = 0; b.y = b.targetY; b.rot = 0;
+        var rebound = b.vy * BOUNCE;
+        if (!b.bounced && rebound * rebound > GRAVITY * 6) {
+          b.bounced = true;
+          b.vy = -rebound;
+          b.x0 = 0; b.y0 = b.targetY; b.sway = 0; b.vr = 0; b.spin = 0;
+          paint(b); squash(b);
+          continue;
+        }
+        b.done = true;
+        b.el.style.transform = '';
+        if (!b.bounced) squash(b);
+        continue;
+      }
+      paint(b);
+    }
+    nameRaf = active ? requestAnimationFrame(stepName) : 0;
+  }
+
+  function dropName(host) {
+    if (REDUCE) return;
+    var els = host.querySelectorAll('.glyph');
+    nameBodies = [];
+    var t0 = performance.now() + 60;
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      var inner = el.firstElementChild;
+      var ew = el.offsetWidth || 1, eh = el.offsetHeight || 1;
+      var squareness = Math.min(1, eh / ew) * 0.5;
+      var y0 = -rand(70, 120);
+      var b = {
+        el: el, inner: inner,
+        x0: rand(-16, 16), y0: y0, x: 0, y: y0, targetY: 0,
+        vy: 0,
+        spin: rand(-1, 1) * (4 + 10 * squareness),
+        vr: rand(-1, 1) * (50 + 130 * squareness),
+        rot: 0, sway: rand(-1, 1) * Math.min(12, -y0 * 0.05),
+        startAt: t0 + i * STAGGER, spawned: false, bounced: false, done: false
+      };
+      b.x = b.x0; b.rot = b.spin;
+      el.style.opacity = '0';
+      paint(b);
+      nameBodies.push(b);
+    }
+    host.classList.remove('glyphs--armed');
+    if (!nameRaf) { nameLast = performance.now(); nameRaf = requestAnimationFrame(stepName); }
+  }
+
+  function initName() {
+    var host = buildGlyphs();
+    if (REDUCE) return;
+    host.classList.add('glyphs--armed');
+    var go = function () { dropName(host); };
+    var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+    var fired = false;
+    var once = function () { if (!fired) { fired = true; setTimeout(go, 220); } };
+    ready.then(once, once);
+    setTimeout(once, 1200);   /* never leave the name hidden if fonts stall */
+    document.getElementById('heroName').addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      var settled = nameBodies.every(function (b) { return b.done; });
+      if (settled) go();
+    });
+  }
+
+  /* ---------------- Toast ----------------
+     Rare UI's success toast: concentric card (radius = tile radius 11 +
+     padding 10), 36px success tile that settles in after the 400ms slide,
+     a springy glyph pop, and the check path drawn from 0 to full length. */
+  var ARRIVAL = 320;
+  var toastTimer = 0;
+  window.__toastCount = 0;
+
+  function showToast(title, description) {
+    var region = document.getElementById('toaster');
+    region.textContent = '';
+    clearTimeout(toastTimer);
+
+    var toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.setAttribute('data-type', 'success');
+    toast.innerHTML =
+      '<div class="toast__card">' +
+        '<span class="toast__tile" aria-hidden="true"><span class="toast__glyph">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path class="toast__check" d="M6 12.5l4 4 8-9" pathLength="1"/></svg>' +
+        '</span></span>' +
+        '<div class="toast__text"><p class="toast__title"></p><p class="toast__desc"></p></div>' +
+      '</div>';
+    toast.querySelector('.toast__title').textContent = title;
+    toast.querySelector('.toast__desc').textContent = description;
+    region.appendChild(toast);
+    window.__toastCount++;
+
+    var anim = !REDUCE && toast.animate;
+    if (anim) {
+      toast.animate([{ transform: 'translateY(110%)', opacity: 0 }, { transform: 'none', opacity: 1 }],
+        { duration: 400, easing: 'cubic-bezier(0.21, 1.02, 0.73, 1)', fill: 'both' });
+      toast.querySelector('.toast__tile').animate([{ transform: 'scale(0.85)', opacity: 0 }, { transform: 'scale(1)', opacity: 1 }],
+        { duration: 380, delay: ARRIVAL - 80, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' });
+      toast.querySelector('.toast__glyph').animate([{ transform: 'scale(0.4)', opacity: 0 }, { transform: 'scale(1)', opacity: 1 }],
+        { duration: 420, delay: ARRIVAL, easing: 'cubic-bezier(0.34, 1.45, 0.64, 1)', fill: 'both' });
+      toast.querySelector('.toast__check').animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }],
+        { duration: 300, delay: ARRIVAL + 100, easing: 'ease-out', fill: 'both' });
+    }
+
+    var dismiss = function () {
+      clearTimeout(toastTimer);
+      if (!toast.isConnected) return;
+      if (anim) {
+        var out = toast.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(12px)' }],
+          { duration: 200, easing: 'ease-in', fill: 'forwards' });
+        out.onfinish = function () { toast.remove(); };
+      } else {
+        toast.remove();
+      }
+    };
+    toast.addEventListener('click', dismiss);
+    toastTimer = setTimeout(dismiss, 4500);
+  }
+
+  /* ---------------- Boot ---------------- */
+  try { initOrb(); } catch (e) { document.getElementById('orb').classList.add('orb--fallback'); }
+  initName();
+  window.__showToast = showToast;
+})();
+
+/* vCard generation for Save-to-Contacts */
+const V_CARD = [
+  'BEGIN:VCARD',
+  'VERSION:3.0',
+  'N:Danley;Jeff;;;',
+  'FN:Jeff Danley',
+  'TITLE:Innovation Development Director',
+  'ORG:Burns & McDonnell',
+  'EMAIL;TYPE=WORK:jdanley@burnsmcd.com',
+  'EMAIL;TYPE=HOME:jeff@readaifirst.com',
+  'URL:https://www.linkedin.com/in/jeffdanley',
+  'URL;TYPE=X:https://x.com/jeffdanley',
+  'NOTE:Author of AI-First: Building the central nervous system of the modern enterprise.',
+  'END:VCARD'
+].join('\r\n');
+
+document.getElementById('saveContact').addEventListener('click', function(e) {
+  e.preventDefault();
+  var blob = new Blob([V_CARD], { type: 'text/vcard;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'Jeff-Danley.vcf';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() { URL.revokeObjectURL(url); a.remove(); }, 1000);
+  if (window.__showToast) window.__showToast('Contact card ready', 'Open Jeff-Danley.vcf to add Jeff');
+});
+</script>
+</body>
+</html>
